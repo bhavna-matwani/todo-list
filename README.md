@@ -1,70 +1,99 @@
-# Getting Started with Create React App
+# Serverless GraphQL React App with AWS Amplify
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project demonstrates how to build and deploy a serverless GraphQL React application using AWS Amplify. This works with v6 of Amplify.
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+- Node.js installed
+- AWS Account
+- Amplify CLI installed (`npm install -g @aws-amplify/cli`)
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 1. Create a New React Application
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npx create-react-app my-app
+cd my-app
+```
 
-### `npm test`
+### 2. Initialize Amplify
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+amplify init
+```
 
-### `npm run build`
+Follow the prompts to configure the project.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 3. Add GraphQL API
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+amplify add api
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Select GraphQL
+- Provide the API name
+- Choose the default authorization type
+- Configure additional settings as needed
 
-### `npm run eject`
+### 4. Generate GraphQL Schema
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Edit `amplify/backend/api/<your_api_name>/schema.graphql` to define your GraphQL schema.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```graphql
+type Todo @model {
+  id: ID!
+  name: String!
+  description: String
+}
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 5. Deploy the Backend
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+amplify push
+```
 
-## Learn More
+### 6. Configure the React App
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Install the necessary dependencies:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm install aws-amplify @aws-amplify/ui-react
+```
 
-### Code Splitting
+Update `src/index.js` to configure Amplify:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```javascript
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+```
 
-### Analyzing the Bundle Size
+### 7. Create the GraphQL Operations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Generate the GraphQL queries and mutations:
 
-### Making a Progressive Web App
+```bash
+amplify codegen
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 8. Implement CRUD Operations
 
-### Advanced Configuration
+Update your React components to interact with the GraphQL API using AWS Amplify.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 9. Deploy the React App
 
-### Deployment
+Add hosting to your project:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+amplify add hosting
+```
 
-### `npm run build` fails to minify
+Deploy the application:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+amplify publish
+```
+
+Credits: Refer to this for older versions of AWS Amplify -> [Mokkapps blog](https://mokkapps.de/blog/build-and-deploy-a-serverless-graphql-react-app-using-aws-amplify).
