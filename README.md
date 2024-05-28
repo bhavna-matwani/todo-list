@@ -75,7 +75,7 @@ Amplify.configure(awsconfig);
 Generate the GraphQL queries and mutations:
 
 ```bash
-amplify codegen
+amplify add api
 ```
 
 ### 8. Implement CRUD Operations
