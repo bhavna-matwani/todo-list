@@ -95,5 +95,7 @@ Deploy the application:
 ```bash
 amplify publish
 ```
+![Todo List](src/todo.png)
 
+Thanks to AWS team for their responses on open issues and the migration documents to help me migrate this from v5 to v6.
 Credits: Refer to this for older versions of AWS Amplify -> [Mokkapps blog](https://mokkapps.de/blog/build-and-deploy-a-serverless-graphql-react-app-using-aws-amplify).
